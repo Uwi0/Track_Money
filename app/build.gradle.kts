@@ -62,6 +62,10 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:designsystem"))
+
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)

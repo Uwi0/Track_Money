@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Track Money"
 include(":app")
+include(":core:ui")
+include(":core:designsystem")
