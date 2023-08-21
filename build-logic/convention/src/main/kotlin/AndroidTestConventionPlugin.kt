@@ -1,6 +1,6 @@
 import com.android.build.gradle.TestExtension
-import com.kakapo.justchat.configureGradleManagedDevices
-import com.kakapo.justchat.configureKotlinAndroid
+import com.kakapo.trackMoney.configureGradleManagedDevices
+import com.kakapo.trackMoney.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

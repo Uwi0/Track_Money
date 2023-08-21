@@ -1,4 +1,4 @@
-package com.kakapo.justchat
+package com.kakapo.trackMoney
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import org.gradle.api.Project

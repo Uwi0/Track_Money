@@ -1,3 +1,5 @@
+import com.kakapo.trackMoney.TrackMoneyBuildType
+
 plugins {
     id("kakapo.android.application")
     id("kakapo.android.application.compose")
@@ -23,11 +25,11 @@ android {
 
     buildTypes {
         debug {
-//            applicationIdSuffix = JustChatBuildType.DEBUG.applicationIdSuffix
+            applicationIdSuffix = TrackMoneyBuildType.DEBUG.applicationIdSuffix
         }
         val release by getting {
             isMinifyEnabled = true
-//            applicationIdSuffix = JustChatBuildType.RELEASE.applicationIdSuffix
+            applicationIdSuffix = TrackMoneyBuildType.RELEASE.applicationIdSuffix
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             // To publish on the Play store a private signing key is required, but to allow anyone
@@ -44,7 +46,7 @@ android {
             // Only use benchmark proguard rules
             proguardFiles("benchmark-rules.pro")
             isMinifyEnabled = true
-//            applicationIdSuffix = JustChatBuildType.BENCHMARK.applicationIdSuffix
+            applicationIdSuffix = TrackMoneyBuildType.BENCHMARK.applicationIdSuffix
         }
     }
     packaging {
@@ -60,6 +62,18 @@ android {
 }
 
 dependencies {
-
-
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.compose.runtime.tracing)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.window.manager)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.accompanist.navigation)
 }

@@ -15,7 +15,7 @@
  */
 
 import com.android.build.gradle.LibraryExtension
-import com.kakapo.justchat.configureGradleManagedDevices
+import com.kakapo.trackMoney.configureGradleManagedDevices
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

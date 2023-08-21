@@ -1,9 +1,9 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.kakapo.justchat.configureGradleManagedDevices
-import com.kakapo.justchat.configureKotlinAndroid
-import com.kakapo.justchat.configureKotlinAndroidToolchain
-import com.kakapo.justchat.configurePrintApksTask
+import com.kakapo.trackMoney.configureGradleManagedDevices
+import com.kakapo.trackMoney.configureKotlinAndroid
+import com.kakapo.trackMoney.configureKotlinAndroidToolchain
+import com.kakapo.trackMoney.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

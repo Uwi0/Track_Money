@@ -1,11 +1,11 @@
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.kakapo.justchat.configureFlavors
-import com.kakapo.justchat.configureGradleManagedDevices
-import com.kakapo.justchat.configureKotlinAndroid
-import com.kakapo.justchat.configureKotlinAndroidToolchain
-import com.kakapo.justchat.configurePrintApksTask
-import com.kakapo.justchat.disableUnnecessaryAndroidTests
+import com.kakapo.trackMoney.configureFlavors
+import com.kakapo.trackMoney.configureGradleManagedDevices
+import com.kakapo.trackMoney.configureKotlinAndroid
+import com.kakapo.trackMoney.configureKotlinAndroidToolchain
+import com.kakapo.trackMoney.configurePrintApksTask
+import com.kakapo.trackMoney.disableUnnecessaryAndroidTests
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

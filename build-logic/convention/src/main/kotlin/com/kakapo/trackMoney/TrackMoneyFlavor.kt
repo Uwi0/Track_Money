@@ -1,4 +1,4 @@
-package com.kakapo.justchat
+package com.kakapo.trackMoney
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.ApplicationProductFlavor
@@ -12,19 +12,22 @@ enum class FlavorDimension {
 }
 
 @Suppress("EnumEntryName")
-enum class JustChatFlavor(val dimension: FlavorDimension, val applicationIdSuffix: String? = null) {
+enum class TrackMoneyFlavor(
+    val dimension: FlavorDimension,
+    val applicationIdSuffix: String? = null
+) {
     demo(FlavorDimension.contentType, applicationIdSuffix = ".demo"),
-    prod(FlavorDimension.contentType, )
+    prod(FlavorDimension.contentType)
 }
 
 fun Project.configureFlavors(
     commonExtension: CommonExtension<*, *, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: JustChatFlavor) -> Unit = {}
+    flavorConfigurationBlock: ProductFlavor.(flavor: TrackMoneyFlavor) -> Unit = {}
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.contentType.name
         productFlavors {
-            JustChatFlavor.values().forEach {
+            TrackMoneyFlavor.values().forEach {
                 create(it.name) {
                     dimension = it.dimension.name
                     flavorConfigurationBlock(this, it)
