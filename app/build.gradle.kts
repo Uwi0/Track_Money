@@ -63,8 +63,14 @@ android {
 
 dependencies {
 
+    //local library
     implementation(project(":core:ui"))
     implementation(project(":core:designsystem"))
+
+    //feature
+    implementation(project(":feature:transaction"))
+    implementation(project(":feature:categories"))
+    implementation(project(":feature:overview"))
 
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
