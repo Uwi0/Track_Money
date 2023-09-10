@@ -7,28 +7,25 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import com.kakapo.common.type.FunUnit
+import com.kakapo.designsystem.component.topAppBar.ContentActionTopAppBar
+import com.kakapo.designsystem.component.topAppBar.NavigationTopAppBarWithTwoAction
 import com.kakapo.transaction.R
 
 @Composable
-internal fun TransactionRoute(openDrawer: () -> Unit) {
-    TransactionScreen(openDrawer)
+internal fun TransactionRoute(openDrawer: () -> Unit, openAddTransaction: () -> Unit) {
+    TransactionScreen(openDrawer, openAddTransaction)
 }
 
 @Composable
-internal fun TransactionScreen(openDrawer: () -> Unit) {
+internal fun TransactionScreen(openDrawer: () -> Unit, openAddTransaction: () -> Unit) {
     Scaffold(
         topBar = {
             TransactionToAppbar(
@@ -42,7 +39,7 @@ internal fun TransactionScreen(openDrawer: () -> Unit) {
             ExtendedFloatingActionButton(
                 text = { Text(text = buttonText) },
                 icon = { Icon(imageVector = Icons.Default.Add, contentDescription = buttonText) },
-                onClick = { /*TODO*/ },
+                onClick = openAddTransaction,
                 expanded = false
             )
         },
@@ -54,28 +51,22 @@ internal fun TransactionScreen(openDrawer: () -> Unit) {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TransactionToAppbar(
-    openDrawer: () -> Unit,
-    onSearch: () -> Unit,
-    onSearchByDate: () -> Unit
+    openDrawer: FunUnit,
+    onSearch: FunUnit,
+    onSearchByDate: FunUnit
 ) {
-    Surface(shadowElevation = 2.dp) {
-        TopAppBar(
-            title = { Text(text = stringResource(id = R.string.title_transaction)) },
-            navigationIcon = { TopAppBarIcon(icon = Icons.Default.Menu, onClick = openDrawer) },
-            actions = {
-                TopAppBarIcon(icon = Icons.Default.Search, onClick = onSearch)
-                TopAppBarIcon(icon = Icons.Default.Event, onClick = onSearchByDate)
-            }
-        )
-    }
-}
-
-@Composable
-private fun TopAppBarIcon(icon: ImageVector, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(imageVector = icon, contentDescription = "")
-    }
+    val topAppbar = ContentActionTopAppBar(
+        navigationIcon = Icons.Default.Menu,
+        title = stringResource(id = R.string.title_transaction),
+        firstActionIcon = Icons.Default.Search,
+        secondActionIcon = Icons.Default.Event
+    )
+    NavigationTopAppBarWithTwoAction(
+        appBar = topAppbar,
+        onNavigate = openDrawer,
+        onFirstAction = onSearch,
+        onSecondAction = onSearchByDate
+    )
 }

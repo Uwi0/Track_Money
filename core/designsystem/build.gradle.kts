@@ -30,7 +30,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.coil.kt.compose)
     implementation(libs.androidx.compose.ui.googlefonts)
-//    implementation(project(":core:common"))
+    implementation(project(":core:common"))
 //
 //    androidTestImplementation(project(":core:testing"))
 }

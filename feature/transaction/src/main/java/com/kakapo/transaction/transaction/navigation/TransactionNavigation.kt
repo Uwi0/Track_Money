@@ -12,8 +12,11 @@ fun NavController.navigateToTransaction(navOptions: NavOptions? = null) {
     this.navigate(TRANSACTION_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.transactionScreen(openDrawer: () -> Unit) {
+fun NavGraphBuilder.transactionScreen(
+    openDrawer: () -> Unit,
+    openAddTransaction: () -> Unit
+) {
     composable(TRANSACTION_ROUTE) {
-        TransactionRoute(openDrawer)
+        TransactionRoute(openDrawer, openAddTransaction)
     }
 }

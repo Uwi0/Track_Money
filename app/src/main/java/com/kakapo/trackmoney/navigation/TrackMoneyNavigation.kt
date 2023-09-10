@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.kakapo.categories.navigation.categoriesScreen
 import com.kakapo.overview.navigation.overviewScreen
+import com.kakapo.transaction.addTransaction.navigation.addTransactionScreen
+import com.kakapo.transaction.addTransaction.navigation.navigateToAddTransactionScreen
 import com.kakapo.transaction.transaction.navigation.transactionScreen
 
 @Composable
@@ -20,7 +22,11 @@ internal fun TrackMoneyNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        transactionScreen(openDrawer = openDrawer)
+        transactionScreen(
+            openDrawer = openDrawer,
+            openAddTransaction = navController::navigateToAddTransactionScreen
+        )
+        addTransactionScreen()
         categoriesScreen()
         overviewScreen()
     }
