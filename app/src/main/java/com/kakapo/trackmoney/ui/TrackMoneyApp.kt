@@ -13,6 +13,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kakapo.trackmoney.navigation.MainMenuNavigation
@@ -26,15 +27,17 @@ internal fun TrackMoneyApp(
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
+    val closeDrawer: () -> Unit = { scope.launch { drawerState.close() } }
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet() {
+            ModalDrawerSheet(drawerShape = RectangleShape) {
                 MainMenuNavigation.entries.forEach { menu ->
                     DrawerMenuItem(
                         menu = menu, onClick = {
+                            closeDrawer.invoke()
                             trackMoneyAppState.navigateToCurrentMainMenu(menu)
-                            scope.launch { drawerState.close() }
                         }
                     )
                 }
@@ -44,7 +47,8 @@ internal fun TrackMoneyApp(
         Surface(modifier = Modifier.fillMaxSize()) {
             TrackMoneyNavHost(
                 navController = trackMoneyAppState.navController,
-                startDestination = startDestination
+                startDestination = startDestination,
+                openDrawer = openDrawer
             )
         }
     }

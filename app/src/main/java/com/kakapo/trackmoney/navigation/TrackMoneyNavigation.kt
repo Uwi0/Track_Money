@@ -12,14 +12,15 @@ import com.kakapo.transaction.transaction.navigation.transactionScreen
 internal fun TrackMoneyNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String
+    startDestination: String,
+    openDrawer: () -> Unit
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        transactionScreen()
+        transactionScreen(openDrawer = openDrawer)
         categoriesScreen()
         overviewScreen()
     }
