@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import com.kakapo.categories.navigation.categoriesScreen
 import com.kakapo.model.arguments.TransactionArguments
 import com.kakapo.overview.navigation.overviewScreen
+import com.kakapo.pickCategory.navigation.navigateToPickCategoryScreen
+import com.kakapo.pickCategory.navigation.pickCategoryScreen
 import com.kakapo.transaction.addTransaction.navigation.addTransactionScreen
 import com.kakapo.transaction.addTransaction.navigation.navigateToAddTransactionScreen
 import com.kakapo.transaction.calculator.navigation.calculatorScreen
@@ -29,7 +31,10 @@ internal fun TrackMoneyNavHost(
             openDrawer = openDrawer,
             openAddTransaction = navController::navigateToAddTransactionScreen
         )
-        addTransactionScreen(onNavigateToCalculator = navController::navigateToCalculatorScreen)
+        addTransactionScreen(
+            onNavigateToCalculator = navController::navigateToCalculatorScreen,
+            onNavigateToPickACategory = navController::navigateToPickCategoryScreen
+        )
         calculatorScreen(
             navigateToAddTransaction = { amount ->
                 val backStack = navController.previousBackStackEntry
@@ -38,6 +43,7 @@ internal fun TrackMoneyNavHost(
                 navController.popBackStack()
             }
         )
+        pickCategoryScreen()
         categoriesScreen()
         overviewScreen()
     }

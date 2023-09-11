@@ -13,12 +13,16 @@ fun NavController.navigateToAddTransactionScreen(navOptions: NavOptions? = null)
     this.navigate(ADD_TRANSACTION_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.addTransactionScreen(onNavigateToCalculator: FunUnit) {
+fun NavGraphBuilder.addTransactionScreen(
+    onNavigateToCalculator: FunUnit,
+    onNavigateToPickACategory: FunUnit
+) {
     composable(ADD_TRANSACTION_ROUTE) { backStack ->
         val saveStateHandle = backStack.savedStateHandle
         AddTransactionRoute(
             saveStateHandle = saveStateHandle,
-            onNavigateToCalculator = onNavigateToCalculator
+            onNavigateToCalculator = onNavigateToCalculator,
+            onNavigateToPickACategory = onNavigateToPickACategory
         )
     }
 }

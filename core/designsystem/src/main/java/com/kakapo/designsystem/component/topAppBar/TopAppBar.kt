@@ -1,5 +1,7 @@
 package com.kakapo.designsystem.component.topAppBar
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,7 +27,7 @@ fun NavigationTopAppBarWithTwoAction(
     onFirstAction: FunUnit,
     onSecondAction: FunUnit
 ) {
-    Surface(shadowElevation = 2.dp) {
+    SurfaceTopAppBar {
         TopAppBar(
             title = { Text(text = appBar.title) },
             navigationIcon = { TopAppBarIcon(icon = appBar.navigationIcon, onClick = onNavigate) },
@@ -34,5 +36,23 @@ fun NavigationTopAppBarWithTwoAction(
                 TopAppBarIcon(icon = appBar.secondActionIcon, onClick = onSecondAction)
             }
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun NavigationUpTopAppbar(title: String, onNavigate: FunUnit) {
+    SurfaceTopAppBar {
+        TopAppBar(
+            title = { Text(text = title) },
+            navigationIcon = { TopAppBarIcon(icon = Icons.Default.ArrowBack, onClick = onNavigate) }
+        )
+    }
+}
+
+@Composable
+private fun SurfaceTopAppBar(content: @Composable FunUnit) {
+    Surface(shadowElevation = 2.dp) {
+        content.invoke()
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -44,18 +45,35 @@ import com.kakapo.ui.DevicePreview
 internal fun AddTransactionRoute(
     viewModel: AddTransactionViewModel = hiltViewModel(),
     onNavigateToCalculator: FunUnit,
+    onNavigateToPickACategory: FunUnit,
     saveStateHandle: SavedStateHandle
 ) {
     val amount = saveStateHandle.get<String>(TransactionArguments.EXPENSE)
     viewModel.setAmount(amount)
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    AddTransactionScreen(uiState = uiState, onNavigateToCalculator = onNavigateToCalculator)
+    val uiEvent = rememberAddTransactionEventState(viewModel = viewModel)
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.uiSideEffect.collect {
+            when (it) {
+                AddTransactionUiSideEffect.NavigateToCalculatorScreen -> {
+                    onNavigateToCalculator.invoke()
+                }
+
+                AddTransactionUiSideEffect.NavigateToPickACategory -> {
+                    onNavigateToPickACategory.invoke()
+                }
+            }
+        }
+    }
+
+    AddTransactionScreen(uiState = uiState, onEvent = uiEvent::handleEvent)
 }
 
 @Composable
 internal fun AddTransactionScreen(
     uiState: AddTransactionUiState,
-    onNavigateToCalculator: FunUnit
+    onEvent: (AddTransactionUiEvent) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -65,14 +83,19 @@ internal fun AddTransactionScreen(
                 onSave = {}
             )
         },
-        content = {
+        content = { padding ->
             Column(
                 modifier = Modifier
-                    .padding(it)
+                    .padding(padding)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                CustomTextButton(onClick = onNavigateToCalculator) {
+                CustomTextButton(
+                    onClick = {
+                        val navigateToCalculator = AddTransactionUiEvent.NavigateToCalculatorScreen
+                        onEvent.invoke(navigateToCalculator)
+                    }
+                ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = "Rp ${uiState.amount}",
@@ -81,16 +104,16 @@ internal fun AddTransactionScreen(
                     )
                 }
                 CustomTextFieldWithIcon(
-                    query = "",
+                    query = uiState.description,
                     placeholder = stringResource(id = R.string.description),
                     icon = Icons.Default.Notes,
-                    onQueryChange = {}
+                    onQueryChange = { onEvent.invoke(AddTransactionUiEvent.InputDescription(it)) }
                 )
                 ClickAbleCustomTextFieldWithIcon(
                     query = "",
                     placeholder = stringResource(id = R.string.category),
                     icon = Icons.Default.Category,
-                    onClick = {}
+                    onClick = { onEvent.invoke(AddTransactionUiEvent.NavigateToPickACategory) }
                 )
                 ClickAbleCustomTextFieldWithIcon(
                     query = "Today",
@@ -157,6 +180,9 @@ private fun AddTransactionTopAppbar(
 @Composable
 private fun AddTransactionScreenPrev() {
     AppTheme {
-        AddTransactionScreen(uiState = AddTransactionUiState(), onNavigateToCalculator = {})
+        AddTransactionScreen(
+            uiState = AddTransactionUiState(),
+            onEvent = {}
+        )
     }
 }
