@@ -2,7 +2,10 @@ package com.kakapo.transaction.addTransaction
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachFile
@@ -15,27 +18,45 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Today
 import androidx.compose.material.icons.filled.Wallet
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kakapo.common.type.FunUnit
+import com.kakapo.designsystem.component.button.CustomTextButton
 import com.kakapo.designsystem.component.textfield.ClickAbleCustomTextFieldWithIcon
 import com.kakapo.designsystem.component.textfield.CustomTextFieldWithIcon
 import com.kakapo.designsystem.component.topAppBar.ContentActionTopAppBar
 import com.kakapo.designsystem.component.topAppBar.NavigationTopAppBarWithTwoAction
 import com.kakapo.designsystem.theme.AppTheme
+import com.kakapo.model.arguments.TransactionArguments
 import com.kakapo.transaction.R
 import com.kakapo.ui.DevicePreview
 
 @Composable
-internal fun AddTransactionRoute() {
-    AddTransactionScreen()
+internal fun AddTransactionRoute(
+    viewModel: AddTransactionViewModel = hiltViewModel(),
+    onNavigateToCalculator: FunUnit,
+    saveStateHandle: SavedStateHandle
+) {
+    val amount = saveStateHandle.get<String>(TransactionArguments.EXPENSE)
+    viewModel.setAmount(amount)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    AddTransactionScreen(uiState = uiState, onNavigateToCalculator = onNavigateToCalculator)
 }
 
 @Composable
-internal fun AddTransactionScreen() {
+internal fun AddTransactionScreen(
+    uiState: AddTransactionUiState,
+    onNavigateToCalculator: FunUnit
+) {
     Scaffold(
         topBar = {
             AddTransactionTopAppbar(
@@ -46,9 +67,19 @@ internal fun AddTransactionScreen() {
         },
         content = {
             Column(
-                modifier = Modifier.padding(it),
+                modifier = Modifier
+                    .padding(it)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                CustomTextButton(onClick = onNavigateToCalculator) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "Rp ${uiState.amount}",
+                        style = MaterialTheme.typography.displayMedium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
                 CustomTextFieldWithIcon(
                     query = "",
                     placeholder = stringResource(id = R.string.description),
@@ -126,6 +157,6 @@ private fun AddTransactionTopAppbar(
 @Composable
 private fun AddTransactionScreenPrev() {
     AppTheme {
-        AddTransactionScreen()
+        AddTransactionScreen(uiState = AddTransactionUiState(), onNavigateToCalculator = {})
     }
 }

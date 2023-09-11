@@ -10,4 +10,5 @@
     <string name="people">People</string>
     <string name="place">Place</string>
     <string name="note">Note</string>
+    <string name="title_calculator_screen">Calculator</string>
 </resources>

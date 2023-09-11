@@ -66,6 +66,7 @@ dependencies {
     //local library
     implementation(project(":core:ui"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
 
     //feature
     implementation(project(":feature:transaction"))
