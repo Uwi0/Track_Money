@@ -38,32 +38,46 @@ internal fun PickCategoryScreen() {
         content = {
             Column(modifier = Modifier.padding(it)) {
                 var currentTab by remember { mutableStateOf(TypeCategories.Expense) }
-                CustomTabRow(selectedTabIndex = currentTab.ordinal) {
-                    for (entry in TypeCategories.entries) {
-                        val title = stringResource(id = entry.title)
-                        val selected = entry == currentTab
-                        CustomTab(selected = selected, onClick = { currentTab = entry }) {
-                            Text(text = title)
-                        }
-                    }
-                }
-                AnimatedContent(
-                    targetState = currentTab.ordinal,
-                    label = TAB_LABEL,
-                    transitionSpec = { slidingContentAnimation() }
-                ) {tab ->
-                    when(tab){
-                        TypeCategories.Expense.ordinal -> CategoriesList(title = "Expense")
-                        TypeCategories.Income.ordinal -> CategoriesList(title = "Income")
-                    }
-                }
+                CategoriesTabs(currentTab = currentTab, onClick = { currentTab = it })
+                CategoriesScreen(currentTab = currentTab)
             }
         }
     )
 }
 
 @Composable
-private fun CategoriesList(title: String){
+private fun CategoriesTabs(currentTab: TypeCategories, onClick: (TypeCategories) -> Unit) {
+    CustomTabRow(selectedTabIndex = currentTab.ordinal) {
+        for (entry in TypeCategories.entries) {
+            val title = stringResource(id = entry.title)
+            val selected = entry == currentTab
+            CustomTab(
+                selected = selected,
+                onClick = { onClick.invoke(entry) },
+                text = { Text(text = title) }
+            )
+        }
+    }
+}
+
+
+@Composable
+private fun CategoriesScreen(currentTab: TypeCategories) {
+    AnimatedContent(
+        targetState = currentTab.ordinal,
+        label = TAB_LABEL,
+        transitionSpec = { slidingContentAnimation() }
+    ) { tab ->
+        when (tab) {
+            TypeCategories.Expense.ordinal -> CategoriesList(title = "Expense")
+            TypeCategories.Income.ordinal -> CategoriesList(title = "Income")
+        }
+    }
+}
+
+
+@Composable
+private fun CategoriesList(title: String) {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(text = "$title not implemented yet")
     }
