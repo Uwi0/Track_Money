@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.kakapo.common.type.FunUnit
-import com.kakapo.designsystem.component.button.TopAppBarIcon
+import com.kakapo.designsystem.component.button.AppBarIcon
 
 data class ContentActionTopAppBar(
     val navigationIcon: ImageVector,
@@ -30,10 +30,10 @@ fun NavigationTopAppBarWithTwoAction(
     SurfaceTopAppBar {
         TopAppBar(
             title = { Text(text = appBar.title) },
-            navigationIcon = { TopAppBarIcon(icon = appBar.navigationIcon, onClick = onNavigate) },
+            navigationIcon = { AppBarIcon(icon = appBar.navigationIcon, onClick = onNavigate) },
             actions = {
-                TopAppBarIcon(icon = appBar.firstActionIcon, onClick = onFirstAction)
-                TopAppBarIcon(icon = appBar.secondActionIcon, onClick = onSecondAction)
+                AppBarIcon(icon = appBar.firstActionIcon, onClick = onFirstAction)
+                AppBarIcon(icon = appBar.secondActionIcon, onClick = onSecondAction)
             }
         )
     }
@@ -45,7 +45,7 @@ fun NavigationUpTopAppbar(title: String, onNavigate: FunUnit) {
     SurfaceTopAppBar {
         TopAppBar(
             title = { Text(text = title) },
-            navigationIcon = { TopAppBarIcon(icon = Icons.Default.ArrowBack, onClick = onNavigate) }
+            navigationIcon = { AppBarIcon(icon = Icons.Default.ArrowBack, onClick = onNavigate) }
         )
     }
 }

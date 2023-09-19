@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun TopAppBarIcon(icon: ImageVector, onClick: () -> Unit) {
+fun AppBarIcon(icon: ImageVector, onClick: () -> Unit) {
     IconButton(onClick = onClick) {
         Icon(imageVector = icon, contentDescription = "")
     }

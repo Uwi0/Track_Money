@@ -2,4 +2,6 @@
 <resources>
     <string name="title_categories">Categories</string>
     <string name="title_pick_category">Pick a Category</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
 </resources>
