@@ -40,6 +40,7 @@ import com.kakapo.designsystem.theme.AppTheme
 import com.kakapo.model.arguments.TransactionArguments
 import com.kakapo.transaction.R
 import com.kakapo.ui.DevicePreview
+import com.kakapo.ui.component.dialog.CustomDialogSelectDate
 
 @Composable
 internal fun AddTransactionRoute(
@@ -63,11 +64,19 @@ internal fun AddTransactionRoute(
                 AddTransactionUiSideEffect.NavigateToPickACategory -> {
                     onNavigateToPickACategory.invoke()
                 }
+
             }
         }
     }
 
     AddTransactionScreen(uiState = uiState, onEvent = uiEvent::handleEvent)
+
+    if (uiEvent.isDialogSelectDateOpened) {
+        CustomDialogSelectDate(
+            onDismiss = { uiEvent.handleEvent(AddTransactionUiEvent.CloseDialogSelectDate) },
+            onSelected = {}
+        )
+    }
 }
 
 @Composable
@@ -119,7 +128,7 @@ internal fun AddTransactionScreen(
                     query = "Today",
                     placeholder = "",
                     icon = Icons.Default.Today,
-                    onClick = {}
+                    onClick = { onEvent.invoke(AddTransactionUiEvent.OpenDialogSelectDate) }
                 )
                 ClickAbleCustomTextFieldWithIcon(
                     query = "",

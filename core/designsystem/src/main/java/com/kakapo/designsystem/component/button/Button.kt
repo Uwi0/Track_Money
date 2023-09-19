@@ -69,7 +69,7 @@ fun CustomButton(
         colors = colors,
         shape = shape
     ) {
-        JarivisButtonContent(
+        CustomButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -93,7 +93,7 @@ fun CustomPrimaryColorButton(
             contentColor = MaterialTheme.colorScheme.primary
         )
     ) {
-        JarivisButtonContent(
+        CustomButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -167,7 +167,7 @@ fun CustomOutlinedButton(
             ButtonDefaults.ContentPadding
         },
     ) {
-        JarivisButtonContent(
+        CustomButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -204,7 +204,7 @@ fun CustomTextButton(
         modifier = modifier,
         enabled = enabled,
     ) {
-        JarivisButtonContent(
+        CustomButtonContent(
             text = text,
             leadingIcon = leadingIcon,
         )
@@ -212,7 +212,7 @@ fun CustomTextButton(
 }
 
 @Composable
-private fun JarivisButtonContent(
+private fun CustomButtonContent(
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
@@ -274,6 +274,16 @@ fun CustomButtonLeadingIconPreview() {
             text = { Text("Test button") },
             leadingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
         )
+    }
+}
+
+@ThemePreviews
+@Composable
+fun CustomTextButtonPreview(){
+    AppTheme {
+        CustomTextButton(onClick = { }) {
+            Text(text = "Test Button")
+        }
     }
 }
 
